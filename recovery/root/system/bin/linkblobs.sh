@@ -13,22 +13,28 @@
 # limitations under the License.
 #
 
+RELEASE=`getprop ro.build.version.release`
 BOOTLOADER=`getprop ro.boot.bootloader`
 OS_VERSION=`echo ${BOOTLOADER:9:1} | tr ABCDEFGHI 123456789`
 
-if [ "$OS_VERSION" -ge 5 ]; then
-  echo "I:linkblobs: Bootloader version: $BOOTLOADER, using Android 14 blobs" >> /tmp/recovery.log;
-  ln -s /vendor/lib64/hw/sgk-14 /vendor/lib64/hw/gatekeeper.mdfpp.so
-  ln -s /vendor/lib64/skm-14 /vendor/lib64/libskeymaster4device.so
-  ln -s /vendor/lib64/skm_h-14 /vendor/lib64/libkeymaster_helper.so
+if [ "$RELEASE" -ge 15 ]; then
+    echo "I:linkblobs: Android $RELEASE detected, using Android 15 blobs" >> /tmp/recovery.log;
+    ln -s /vendor/lib64/hw/sgk-15 /vendor/lib64/hw/gatekeeper.mdfpp.so
+    ln -s /vendor/lib64/skm-15 /vendor/lib64/libskeymaster4device.so
+    ln -s /vendor/lib64/skm_h-15 /vendor/lib64/libkeymaster_helper.so
+elif [ "$OS_VERSION" -ge 5 ]; then
+    echo "I:linkblobs: Bootloader version: $BOOTLOADER (OS v$OS_VERSION), using Android 14 blobs" >> /tmp/recovery.log;
+    ln -s /vendor/lib64/hw/sgk-14 /vendor/lib64/hw/gatekeeper.mdfpp.so
+    ln -s /vendor/lib64/skm-14 /vendor/lib64/libskeymaster4device.so
+    ln -s /vendor/lib64/skm_h-14 /vendor/lib64/libkeymaster_helper.so
 elif [ "$OS_VERSION" -ge 2 ]; then
-  echo "I:linkblobs: Bootloader version: $BOOTLOADER, using Android 13 blobs" >> /tmp/recovery.log;
-  ln -s /vendor/lib64/hw/sgk-13 /vendor/lib64/hw/gatekeeper.mdfpp.so
-  ln -s /vendor/lib64/skm-13 /vendor/lib64/libskeymaster4device.so
-  ln -s /vendor/lib64/skm_h-13 /vendor/lib64/libkeymaster_helper.so
+    echo "I:linkblobs: Bootloader version: $BOOTLOADER (OS v$OS_VERSION), using Android 13 blobs" >> /tmp/recovery.log;
+    ln -s /vendor/lib64/hw/sgk-13 /vendor/lib64/hw/gatekeeper.mdfpp.so
+    ln -s /vendor/lib64/skm-13 /vendor/lib64/libskeymaster4device.so
+    ln -s /vendor/lib64/skm_h-13 /vendor/lib64/libkeymaster_helper.so
 else
-  echo "I:linkblobs: Bootloader version: $BOOTLOADER, using Android 12 blobs" >> /tmp/recovery.log;
-  ln -s /vendor/lib64/hw/sgk-12 /vendor/lib64/hw/gatekeeper.mdfpp.so
-  ln -s /vendor/lib64/skm-12 /vendor/lib64/libskeymaster4device.so
-  ln -s /vendor/lib64/skm_h-12 /vendor/lib64/libkeymaster_helper.so
-fi;
+    echo "I:linkblobs: Bootloader version: $BOOTLOADER (OS v$OS_VERSION), using Android 12 blobs" >> /tmp/recovery.log;
+    ln -s /vendor/lib64/hw/sgk-12 /vendor/lib64/hw/gatekeeper.mdfpp.so
+    ln -s /vendor/lib64/skm-12 /vendor/lib64/libskeymaster4device.so
+    ln -s /vendor/lib64/skm_h-12 /vendor/lib64/libkeymaster_helper.so
+fi

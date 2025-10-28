@@ -5,10 +5,10 @@
 /recovery	emmc		/dev/block/bootdevice/by-name/recovery		flags=backup=1
 /vendor_boot	emmc		/dev/block/bootdevice/by-name/vendor_boot	flags=backup=1;flashimg=1;display="Vendor Boot"
 
-/system_image	emmc		/dev/block/bootdevice/by-name/system		flags=backup=1;flashimg=1
+/system_image	emmc		/dev/block/bootdevice/by-name/system		flags=backup=1;flashimg=1;wipeingui
 /odm_image	emmc		/dev/block/bootdevice/by-name/odm		flags=backup=1;flashimg=1;display="Odm"
 /product_image	emmc		/dev/block/bootdevice/by-name/product		flags=backup=1;flashimg=1;display="Product Image"
-/vendor_image	emmc		/dev/block/bootdevice/by-name/vendor		flags=backup=1;flashimg=1
+/vendor_image	emmc		/dev/block/bootdevice/by-name/vendor		flags=backup=1;flashimg=1;wipeingui
 
 /cache		ext4		/dev/block/bootdevice/by-name/cache
 /efs		ext4		/dev/block/bootdevice/by-name/efs		flags=backup=1;display="EFS"
@@ -22,7 +22,6 @@
 /prism_image	emmc		/dev/block/bootdevice/by-name/prism		flags=backup=1;flashimg=1;display="Prism Image"
 
 /persist	ext4		/dev/block/bootdevice/by-name/persist		flags=fsflags=ro;display="Persist"
-/metadata	ext4		/dev/block/bootdevice/by-name/metadata		flags=display="Metadata"
 
 # Removable partitions
 /external_sd	auto		/dev/block/mmcblk0p1	/dev/block/mmcblk1	flags=storage;wipeingui;removable
